@@ -17,7 +17,7 @@ def getTransactions():
     end = str(end)
 
     # get api from blockchain
-    response = requests.get(('https://api.whale-alert.io/v1/transactions?api_key=KtE5Gw2adzR9RT0SX8TGuF2e0k72Y1mq&min_value=1000000&start='+start+'&end='+end+'&cursor=2bc7e46-2bc7e46-5c66c0a7'))
+    response = requests.get(('https://api.whale-alert.io/v1/transactions?api_key='+config.BLOCKCHAIN+'&min_value=1000000&start='+start+'&end='+end+'&cursor=2bc7e46-2bc7e46-5c66c0a7'))
     json_r = response.json()
 
     # get how many transaction within that certain time frame
