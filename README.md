@@ -1,5 +1,5 @@
 # Blockchain-Whale-Alert
- A twitter bot that tweets whenever transactions above $1 000 000 USD are made on the blockchain
+ A twitter bot that tweets whenever transactions above $1 000 000 USD are made on the blockchain.
  
  Link to twitter: https://twitter.com/Whale_Alerts
  
@@ -16,3 +16,7 @@
 * Working with transactions on the blockchain and find the ones that were over $1 million USD with the details of that transaction
 * How to use the twitter API to post certain information given from transactions
  
+ ## Terminology
+ "Whale" - big money cryptocurrency players
+ 
+ "Blockchain" - record of transactions aka Digital Ledger
