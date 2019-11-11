@@ -2,7 +2,6 @@ import requests
 import datetime
 import tweepy
 
-
 def getTransactions():
     # get the time in utc timestamp and make it an int not a float
     ends = datetime.datetime.utcnow().timestamp()
