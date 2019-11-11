@@ -2,6 +2,7 @@ import requests
 import datetime
 import tweepy
 
+
 def getTransactions():
     # get the time in utc timestamp and make it an int not a float
     ends = datetime.datetime.utcnow().timestamp()
@@ -16,42 +17,41 @@ def getTransactions():
     end = str(end)
 
     # get api from blockchain
-    response = requests.get(('https://api.whale-alert.io/v1/transactions?api_key=KtE5Gw2adzR9RT0SX8TGuF2e0k72Y1mq&min_value=500000&start='+start+'&end='+end+'&cursor=2bc7e46-2bc7e46-5c66c0a7'))
+    response = requests.get(('https://api.whale-alert.io/v1/transactions?api_key=KtE5Gw2adzR9RT0SX8TGuF2e0k72Y1mq&min_value=1000000&start='+start+'&end='+end+'&cursor=2bc7e46-2bc7e46-5c66c0a7'))
     json_r = response.json()
 
     # get how many transaction within that certain time frame
     count = json_r["count"]
     
     # if the count is not zero then get the transactions
-    print(count)
     if(count != 0):
         transactions = json_r['transactions']
-        print(transactions)
+        
         for key in transactions:
-            if key['amount_usd'] >= 500000:
+            if key['amount_usd'] >= 10000000:
                 if key['from']['owner_type'] == 'exchange' and key['to']['owner_type'] == 'exchange':
                     if key['from']['owner'] == key['to']['owner']:
-                        print("🔺🔺" +str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered on #' + key['from']['owner'].title()+ "🔺🔺")
+                        twitter("🔺 " +str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered on #' + key['from']['owner'].title())
                     else:
-                        print("🔺🔺" +str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to #' + key['to']['owner'].title()+ "🔺🔺")
+                        twitter("🔺 " +str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to #' + key['to']['owner'].title())
                 elif key['from']['owner_type'] == 'exchange' and key['to']['owner_type'] == 'unknown':
-                    print("🔺🔺" +str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to ' + key['to']['owner_type']+ "🔺🔺")
+                    twitter("🔺 " +str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to ' + key['to']['owner_type'])
                 elif key['from']['owner_type'] == 'unknown' and key['to']['owner_type'] == 'exchange':
-                    print("🔺🔺" +str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to #' + key['to']['owner'].title()+ "🔺🔺")
+                    twitter("🔺 " +str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to #' + key['to']['owner'].title())
                 elif key['from']['owner_type'] == 'unknown' and key['to']['owner_type'] == 'unknown':
-                    print("🔺🔺" +str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to ' + key['to']['owner_type']+ "🔺🔺")
+                    twitter("🔺 " +str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to ' + key['to']['owner_type'])
             else:
                 if key['from']['owner_type'] == 'exchange' and key['to']['owner_type'] == 'exchange':
                     if key['from']['owner'] == key['to']['owner']:
-                        print(str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered on #' + key['from']['owner'].title())
+                        twitter(str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered on #' + key['from']['owner'].title())
                     else:
-                        print(str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to #' + key['to']['owner'].title())
+                        twitter(str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to #' + key['to']['owner'].title())
                 elif key['from']['owner_type'] == 'exchange' and key['to']['owner_type'] == 'unknown':
-                    print(str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to ' + key['to']['owner_type'])
+                    twitter(str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from #' + key['from']['owner'].title() + ' to ' + key['to']['owner_type'])
                 elif key['from']['owner_type'] == 'unknown' and key['to']['owner_type'] == 'exchange':
-                    print(str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to #' + key['to']['owner'].title())
+                    twitter(str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to #' + key['to']['owner'].title())
                 elif key['from']['owner_type'] == 'unknown' and key['to']['owner_type'] == 'unknown':
-                    print(str(key['amount'])+' #'+key['symbol'].upper() +' (' + str(key['amount_usd']) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to ' + key['to']['owner_type'])
+                    twitter(str(int(key['amount']))+' #'+key['symbol'].upper() +' (' + str(int(key['amount_usd'])) + ' USD) Was transfered from ' + key['from']['owner_type'] + ' to ' + key['to']['owner_type'])
 
 def twitter(post):
     # all the keys we need for our twitter bot
