@@ -1,6 +1,7 @@
 import requests
 import datetime
 import tweepy
+import config
 
 def getTransactions():
     # get the time in utc timestamp and make it an int not a float
@@ -54,10 +55,10 @@ def getTransactions():
 
 def twitter(post):
     # all the keys we need for our twitter bot
-    CONSUMER_KEY = 'deE16vcPAilCdnc3m7t77Q8TA'
-    CONSUMER_SECRET = 'KMIevjvdIcHc94uDrna7DOzJaaGCfl04l9Da6c1TBZuAVyfGG2'
-    ACCESS_KEY = '1174927237704871936-4oFhJuMVOvuWs2Qjdwt24PqKA4KIr4'
-    ACCESS_SECRET = 'rj5AnNEMUrlQlbfOer8aLDQJsbCvpVAcc8cXL7CQ8sAL1'
+    CONSUMER_KEY = config.CONSUMERKEY
+    CONSUMER_SECRET = config.CONSUMERSECRET
+    ACCESS_KEY = config.ACCESSKEY
+    ACCESS_SECRET = config.ACCESSSECRET
 
     # talk to twitter
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
